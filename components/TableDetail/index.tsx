@@ -1,135 +1,290 @@
-import { BoxesIcon, GroupIcon, TableIcon } from 'lucide-react'
+import clsx from 'clsx'
+import {
+	BoxesIcon,
+	CheckCircle2Icon,
+	CircleIcon,
+	CopyPlusIcon,
+	FileUpIcon,
+	GroupIcon,
+	HardDriveIcon,
+	KeyboardIcon,
+	KeyIcon,
+	KeyRoundIcon,
+	Loader2Icon,
+	PenIcon,
+	PlayIcon,
+	PlusIcon,
+	RotateCcwIcon,
+	SettingsIcon,
+	SignatureIcon,
+	TableIcon,
+	Trash2Icon,
+} from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { toast } from 'sonner'
 
 import { api } from '@/config'
-import { IQueryMeta } from '@/interfaces'
 import { useDataSourcesStore, useTabsStore } from '@/stores'
-import { getTypeInfo } from '@/utils'
+import { formatDataSize, getTypeInfo } from '@/utils'
 import { Button } from '../ui/button'
-import { ButtonGroup } from '../ui/button-group'
 
-type Tab = 'properties' | 'data' | 'diagram'
-const tabs: Tab[] = ['properties', 'data', 'diagram']
+const tabs = [
+	{
+		id: 'data',
+		title: 'Data',
+		icon: <BoxesIcon />,
+	},
+	{
+		id: 'structure',
+		title: 'Structure',
+		icon: <TableIcon />,
+	},
+	{
+		id: 'er-diagram',
+		title: 'ER Diagram',
+		icon: <GroupIcon />,
+	},
+]
 
 const TableDetail = () => {
-	const { activeTab, contentById, commitContent } = useTabsStore()
-	const { currentDatabase, currentTable, schema } = useDataSourcesStore()
-	const [currentTab, setCurrentTab] = useState<Tab>('data')
-	const [queryMeta, setQueryMeta] = useState<IQueryMeta | null>(null)
+	const { activeTab, commitContent } = useTabsStore()
+	const { currentDatabase, currentTable, schema, selectedId } =
+		useDataSourcesStore()
+	const [currentTab, setCurrentTab] = useState('data')
+	const [result, setResult] = useState(null)
+	const [isLoading, setIsLoading] = useState(false)
 
-	const rows =
-		activeTab?.id ?
-			contentById[activeTab!.id] ?
-				JSON.parse(contentById[activeTab.id])
-			:	[]
-		:	[]
 	const columns = schema[currentTable || ''] || []
 
 	useEffect(() => {
-		if (activeTab?.type === 'table' && currentDatabase && currentTable) {
+		if (
+			activeTab?.type === 'table' &&
+			currentDatabase &&
+			currentTable &&
+			selectedId
+		) {
 			;(async () => {
+				setIsLoading(true)
+
 				try {
 					const { data } = await api.get(
-						`/databases/${currentDatabase}/tables/${currentTable}/preview?page=1`,
+						`/data_sources/${selectedId}/databases/${currentDatabase}/tables/${currentTable}/preview?page=1`,
 					)
 
 					commitContent(
 						activeTab.id,
-						JSON.stringify(data.data, null, 2),
+						JSON.stringify(data.data.rows, null, 2),
 					)
-					setQueryMeta(data.meta)
+					setResult(data.data)
 				} catch (error) {
 					toast.error('Failed to fetch table preview: ' + error)
+				} finally {
+					setIsLoading(false)
 				}
 			})()
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [activeTab, currentDatabase, currentTable])
+	}, [activeTab, currentDatabase, currentTable, selectedId])
+
+	if (isLoading) {
+		return (
+			<div className='absolute inset-0 flex items-center justify-center'>
+				<Loader2Icon
+					size={48}
+					className='animate-spin text-primary'
+				/>
+			</div>
+		)
+	}
 
 	return (
-		<div className='relative space-y-7'>
-			<div className='flex items-center'>
-				<ButtonGroup>
+		<div className='flex flex-col h-[calc(100vh-6rem)]'>
+			<div className='flex items-center justify-between px-4 pt-4 border-b shrink-0'>
+				<div className='flex gap-4'>
 					{tabs.map((tab) => (
-						<Button
-							key={tab}
-							variant={currentTab === tab ? 'default' : 'outline'}
-							onClick={() => setCurrentTab(tab)}>
-							{tab === 'properties' && <TableIcon />}
-							{tab === 'data' && <BoxesIcon />}
-							{tab === 'diagram' && <GroupIcon />}
-							{tab.charAt(0).toUpperCase() + tab.slice(1)}
-						</Button>
+						<div
+							key={tab.id}
+							className={clsx(
+								'flex items-center gap-2 cursor-pointer border-b-2 transition-colors duration-300 pb-2 select-none',
+								{
+									'border-primary text-primary':
+										currentTab === tab.id,
+									'border-transparent hover:border-gray-300':
+										currentTab !== tab.id,
+								},
+							)}
+							onClick={() => setCurrentTab(tab.id)}>
+							{tab.icon}
+							<div className='font-medium'>{tab.title}</div>
+						</div>
 					))}
-				</ButtonGroup>
+				</div>
 			</div>
 
-			<table className='w-full border-collapse whitespace-nowrap font-mono'>
-				<thead>
-					<tr>
-						<th className='border p-2 text-left select-none'>
-							<div className='text-lg font-semibold'>Index</div>
-						</th>
+			<div className='flex items-center justify-between p-4 border-b shrink-0'>
+				<div className='flex items-center gap-3'>
+					<Button
+						size='icon'
+						variant='ghost'>
+						<PlusIcon />
+					</Button>
 
-						{columns.map((col) => {
-							const { icon: Icon, color } = getTypeInfo(
-								col.data_type,
-							)
+					<Button
+						size='icon'
+						variant='ghost'>
+						<PenIcon />
+					</Button>
 
-							return (
-								<th
-									key={col.column_name}
-									className='border p-2 text-left select-none'>
-									<div className='flex items-center gap-4'>
-										<Icon
-											size={18}
-											className={color}
-										/>
+					<Button
+						size='icon'
+						variant='ghost'>
+						<CopyPlusIcon />
+					</Button>
 
-										<div className='text-lg font-semibold'>
-											{col.column_name}
-										</div>
-									</div>
+					<Button
+						size='icon'
+						variant='ghost'>
+						<Trash2Icon />
+					</Button>
 
-									{!col.is_nullable && (
-										<div className='text-sm uppercase text-red-400'>
-											not null
-										</div>
-									)}
-								</th>
-							)
-						})}
-					</tr>
-				</thead>
-				<tbody>
-					{rows.map((row, i) => (
-						<tr
-							key={i}
-							className='odd:bg-primary/5'>
-							<td
-								key={`index-${i}`}
-								className='border p-2 select-none hover:bg-primary hover:text-primary-foreground transition-colors duration-300 text-neutral-500'>
-								{i + 1}
-							</td>
+					<div className='w-0.5 h-8 bg-black'></div>
 
-							{columns.map((col) => (
-								<td
-									key={col.column_name}
-									className='border p-2 hover:bg-primary hover:text-primary-foreground transition-all duration-300 select-none text-neutral-500'>
-									{row[col.column_name]}
-								</td>
-							))}
-						</tr>
-					))}
-				</tbody>
-			</table>
+					<Button
+						size='icon'
+						variant='ghost'>
+						<RotateCcwIcon />
+					</Button>
 
-			{queryMeta && (
-				<div className='absolute left-0 bottom-0 h-12 flex items-center gap-4 bg-primary/80 px-4 rounded-tl-lg'>
-					{`Fetched at: ${new Date(queryMeta.fetchedAt).toLocaleTimeString()} | Duration: ${queryMeta.durationMs} ms | Row count: ${queryMeta.rowCount}`}
+					<Button
+						size='icon'
+						variant='ghost'>
+						<FileUpIcon />
+					</Button>
+
+					<Button
+						size='icon'
+						variant='ghost'>
+						<SettingsIcon />
+					</Button>
 				</div>
-			)}
+
+				<Button>
+					<PlayIcon />
+					<span>Execute query</span>
+				</Button>
+			</div>
+
+			<div className='flex-1 overflow-auto min-h-0'>
+				<table className='w-full border-collapse whitespace-nowrap'>
+					<thead>
+						<tr>
+							<th className='border p-2 sticky top-0 bg-primary z-10'>
+								<CircleIcon className='text-white mx-auto' />
+							</th>
+
+							{columns.map((col) => {
+								const { icon: Icon } = getTypeInfo(
+									col.data_type,
+								)
+								return (
+									<th
+										key={col.column_name}
+										className='border p-2 text-left select-none sticky top-0 bg-primary text-white z-10'>
+										<div className='flex items-center gap-4'>
+											{col.is_primary && (
+												<KeyIcon className='text-yellow-500' />
+											)}
+
+											{col.is_foreign_key && (
+												<KeyRoundIcon className='text-neutral-300' />
+											)}
+
+											{col.is_unique && (
+												<SignatureIcon className='text-green-500' />
+											)}
+
+											<div>
+												<div className='text-lg font-semibold'>
+													{col.column_name}
+												</div>
+
+												<div className='flex items-center gap-2'>
+													<Icon size={18} />
+
+													<div className='text-sm uppercase text-neutral-300 dark:text-neutral-500'>
+														{col.data_type}
+													</div>
+												</div>
+											</div>
+										</div>
+									</th>
+								)
+							})}
+						</tr>
+					</thead>
+					<tbody>
+						{result?.rows?.map((row, i) => (
+							<tr
+								key={i}
+								className='odd:bg-primary/5 hover:bg-primary/10 transition-colors duration-150'>
+								<td
+									key={`index-${i}`}
+									className='border p-2 select-none text-neutral-500 font-mono text-center'>
+									{i + 1}
+								</td>
+
+								{columns.map((col) => (
+									<td
+										key={col.column_name}
+										className='border p-2 select-none text-neutral-600 font-mono'>
+										{row[col.column_name] === null ?
+											<span className='italic text-neutral-400'>
+												[NULL]
+											</span>
+										:	String(row[col.column_name])}
+									</td>
+								))}
+							</tr>
+						))}
+					</tbody>
+				</table>
+			</div>
+
+			<div className='shrink-0 p-4 flex items-center justify-between border-t bg-neutral-50'>
+				<div className='flex items-center gap-2'>
+					<CheckCircle2Icon
+						className='text-green-600'
+						size={18}
+					/>
+
+					<div className='text-sm text-neutral-600'>
+						<span className='font-semibold'>
+							{result?.rows?.length}
+						</span>{' '}
+						rows affected in{' '}
+						<span className='font-semibold'>
+							{result?.durationMs?.toFixed(2)}
+						</span>{' '}
+						ms
+					</div>
+				</div>
+
+				<div className='flex items-center gap-4'>
+					<div className='flex items-center gap-2 text-sm text-neutral-600'>
+						<HardDriveIcon />
+						<span>
+							Memory: {formatDataSize(result?.sizeBytes || 0)}
+						</span>
+					</div>
+
+					<div className='w-0.5 h-8 bg-neutral-600'></div>
+
+					<div className='flex items-center gap-2 text-sm text-neutral-600'>
+						<KeyboardIcon />
+						<span>UTF8</span>
+					</div>
+				</div>
+			</div>
 		</div>
 	)
 }

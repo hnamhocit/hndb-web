@@ -4,28 +4,72 @@ export const datasourceSchema = z.enum([
 	'postgresql',
 	'mysql',
 	'sqlite',
-	'mongodb',
-	'redis',
+	'sql-server',
 ])
-export type DataSourceType = z.infer<typeof datasourceSchema>
 
 export const ConnectionMethod = z.enum(['host', 'url'])
-export type ConnectionMethod = z.infer<typeof ConnectionMethod>
 
 const baseDataSourceSchema = z.object({
 	type: datasourceSchema,
-	savePassword: z.boolean().default(false),
-	showAllDatabases: z.boolean().default(false),
-	username: z.string().nonempty('Username is required'),
-	password: z.string().nonempty('Password is required'),
+	savePassword: z.boolean(),
+	showAllDatabases: z.boolean(),
+	username: z.string().optional(),
+	password: z.string().optional(),
 })
 
-const hostConnectionSchema = baseDataSourceSchema.extend({
-	method: z.literal('host'),
-	host: z.string().min(1, 'Host is required'),
-	port: z.number().int().min(1).max(65535),
-	database: z.string().min(1, 'Database is required'),
-})
+const hostConnectionSchema = baseDataSourceSchema
+	.extend({
+		method: z.literal('host'),
+		host: z.string().optional(),
+		port: z.number().int().min(1).max(65535).optional(),
+		database_name: z.string().optional(),
+	})
+	.superRefine((data, ctx) => {
+		// Luồng 1: Nếu là SQLite -> Bắt buộc có đường dẫn file (database_name), bỏ qua mọi thứ khác
+		if (data.type === 'sqlite') {
+			if (!data.database_name || data.database_name.trim() === '') {
+				ctx.addIssue({
+					code: 'custom',
+					message: 'SQLite requires a file path (Database)',
+					path: ['database_name'],
+				})
+			}
+			return
+		}
+
+		// Luồng 2: Với Postgres, MySQL, SQL Server -> Bắt buộc có Host, Port, Username
+		if (!data.host)
+			ctx.addIssue({
+				code: 'custom',
+				message: 'Host is required',
+				path: ['host'],
+			})
+		if (!data.port)
+			ctx.addIssue({
+				code: 'custom',
+				message: 'Port is required',
+				path: ['port'],
+			})
+		if (!data.username)
+			ctx.addIssue({
+				code: 'custom',
+				message: 'Username is required',
+				path: ['username'],
+			})
+
+		// Luồng 3: Xử lý riêng Database Name
+		// Postgres và SQL Server BẮT BUỘC phải có tên DB. (MySQL thì không cần)
+		if (
+			(data.type === 'postgresql' || data.type === 'sql-server') &&
+			!data.database_name
+		) {
+			ctx.addIssue({
+				code: 'custom',
+				message: `${data.type} requires a database name`,
+				path: ['database_name'],
+			})
+		}
+	})
 
 const urlConnectionSchema = baseDataSourceSchema.extend({
 	method: z.literal('url'),
@@ -36,9 +80,8 @@ const urlConnectionSchema = baseDataSourceSchema.extend({
 			const patterns = [
 				/^postgres(ql)?:\/\//,
 				/^mysql:\/\//,
-				/^mongodb(\+srv)?:\/\//,
-				/^redis:\/\//,
 				/^sqlite:\/\//,
+				/^(sqlserver|mssql):\/\//,
 			]
 			return patterns.some((p) => p.test(val))
 		}, 'Invalid database URL format'),
@@ -50,6 +93,5 @@ export const dataSourceSchema = z.discriminatedUnion('method', [
 ])
 
 export type DataSourceFormData = z.infer<typeof dataSourceSchema>
-
 export type HostConnectionData = z.infer<typeof hostConnectionSchema>
 export type UrlConnectionData = z.infer<typeof urlConnectionSchema>

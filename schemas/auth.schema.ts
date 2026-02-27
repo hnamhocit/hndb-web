@@ -2,7 +2,10 @@ import z from 'zod'
 
 const passwordSchema = z
 	.string()
-	.regex(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/)
+	.regex(
+		/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/,
+		'At least 8 characters, including uppercase, lowercase, number, and special character.',
+	)
 
 const loginSchema = z.object({
 	email: z.email({ message: 'Invalid email address.' }),

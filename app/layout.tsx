@@ -1,8 +1,13 @@
-import { TooltipProvider } from '@/components/ui/tooltip'
+import './globals.css'
+
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
+import { ReactNode } from 'react'
 import { Toaster } from 'sonner'
-import './globals.css'
+
+import Providers from '@/components/Providers'
+import { TooltipProvider } from '@/components/ui/tooltip'
+import DefaultLayout from '@/layouts/DefaultLayout'
 
 const geistSans = Geist({
 	variable: '--font-geist-sans',
@@ -22,13 +27,17 @@ export const metadata: Metadata = {
 export default function RootLayout({
 	children,
 }: Readonly<{
-	children: React.ReactNode
+	children: ReactNode
 }>) {
 	return (
 		<html lang='en'>
 			<body
 				className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-				<TooltipProvider>{children}</TooltipProvider>
+				<Providers>
+					<TooltipProvider>
+						<DefaultLayout>{children}</DefaultLayout>
+					</TooltipProvider>
+				</Providers>
 				<Toaster />
 			</body>
 		</html>

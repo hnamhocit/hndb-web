@@ -15,15 +15,22 @@ import SQLEditor from './SQLEditor'
 
 const QueryBuilder = () => {
 	const { contentById, activeTab } = useTabsStore()
-	const { currentDatabase } = useDataSourcesStore()
+	const { currentDatabase, selectedDataSource } = useDataSourcesStore()
 
 	if (!activeTab) return
 
 	const handleRunQuery = async () => {
 		try {
+			if (!selectedDataSource) {
+				toast.error('No data source selected', {
+					position: 'top-center',
+				})
+				return
+			}
+
 			const query = contentById[activeTab.id] || ''
 			const { data } = await api.post(
-				`/databases/${currentDatabase}/query`,
+				`/data_sources/${selectedDataSource.id}/databases/${currentDatabase}/query`,
 				{
 					query,
 				},

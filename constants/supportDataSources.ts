@@ -15,13 +15,8 @@ export const supportDataSources = [
 		photoURL: '/sqlite.png',
 	},
 	{
-		id: 'mongodb',
-		name: 'MongoDB',
-		photoURL: '/mongodb.svg',
-	},
-	{
-		id: 'redis',
-		name: 'Redis',
-		photoURL: '/redis.svg',
+		id: 'sql-server',
+		name: 'SQL Server',
+		photoURL: '/sql-server.svg',
 	},
 ]

@@ -1,12 +1,14 @@
 import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
 
-import { IColumn } from '@/interfaces'
-import { DataSourceFormData } from '@/schemas'
+import { IColumn, IDataSource } from '@/interfaces'
 
 interface DataSourcesStore {
-	datasources: DataSourceFormData[]
-	setDatasources: (datasources: DataSourceFormData[]) => void
+	datasources: IDataSource[]
+	setDatasources: (datasources: IDataSource[]) => void
+
+	selectedId: string | null
+	setSelectedId: (id: string | null) => void
 
 	databases: string[]
 	setDatabases: (databases: string[]) => void
@@ -33,6 +35,9 @@ export const useDataSourcesStore = create<DataSourcesStore>()(
 			datasources: [],
 			setDatasources: (datasources) => set({ datasources }),
 
+			selectedId: null,
+			setSelectedId: (selectedId) => set({ selectedId }),
+
 			databases: [],
 			setDatabases: (databases) => set({ databases }),
 
@@ -56,11 +61,9 @@ export const useDataSourcesStore = create<DataSourcesStore>()(
 			name: 'datasources-store',
 			storage: createJSONStorage(() => localStorage),
 			partialize: (state) => ({
-				datasources: state.datasources,
-				databases: state.databases,
+				selectedId: state.selectedId,
 				currentDatabase: state.currentDatabase,
 				currentTable: state.currentTable,
-				schema: state.schema,
 			}),
 		},
 	),
