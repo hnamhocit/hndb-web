@@ -10,6 +10,7 @@ import {
 } from '@/components/ui/accordion'
 import { api } from '@/config'
 import { useDataSourcesStore } from '@/stores'
+import { AxiosError } from 'axios'
 import Tables from './Tables'
 
 const Databases = () => {
@@ -37,7 +38,17 @@ const Databases = () => {
 				)
 				setDatabases(data.data)
 			} catch (error) {
-				toast.error('Failed to fetch databases: ' + error)
+				if (error instanceof AxiosError) {
+					if ('error' in error.response?.data) {
+						toast.error(error.response?.data.error, {
+							position: 'top-center',
+						})
+					}
+
+					return
+				}
+
+				toast.error('Failed to fetch databases.')
 			} finally {
 				setIsDatabaseLoading(false)
 			}
@@ -57,7 +68,17 @@ const Databases = () => {
 				)
 				setSchema(data.data)
 			} catch (error) {
-				toast.error('Failed to fetch schema: ' + error)
+				if (error instanceof AxiosError) {
+					if ('error' in error.response?.data) {
+						toast.error(error.response?.data.error, {
+							position: 'top-center',
+						})
+					}
+
+					return
+				}
+
+				toast.error('Failed to fetch schema.')
 			} finally {
 				setIsSchemaLoading(false)
 			}

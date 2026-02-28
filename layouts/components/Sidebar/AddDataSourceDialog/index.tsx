@@ -16,6 +16,7 @@ import { toast } from 'sonner'
 import { supportDataSources } from '@/constants/supportDataSources'
 import { dataSourcesService } from '@/services'
 import { useDataSourcesStore, useUserStore } from '@/stores'
+import { AxiosError } from 'axios'
 import { Button } from '../../../../components/ui/button'
 import { Checkbox } from '../../../../components/ui/checkbox'
 import {
@@ -115,9 +116,17 @@ const AddDataSourceDialog = () => {
 			toast.success('Data source added successfully!', {
 				position: 'top-center',
 			})
-
-			// eslint-disable-next-line @typescript-eslint/no-unused-vars
 		} catch (error) {
+			if (error instanceof AxiosError) {
+				if ('error' in error.response?.data) {
+					toast.error(error.response?.data.error, {
+						position: 'top-center',
+					})
+				}
+
+				return
+			}
+
 			toast.error('Failed to add data source.', {
 				position: 'top-center',
 			})

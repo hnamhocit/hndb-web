@@ -36,10 +36,11 @@ const Tabs = () => {
 				<div className='font-medium font-mono'>New</div>
 			</div>
 
-			{tabs.map((tab) => (
+			{tabs.map((tab, index) => (
 				<Tab
 					key={tab.id}
-					{...tab}
+					tab={tab}
+					index={index}
 				/>
 			))}
 		</div>

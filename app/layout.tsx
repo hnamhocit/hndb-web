@@ -32,7 +32,7 @@ export default function RootLayout({
 	return (
 		<html lang='en'>
 			<body
-				className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+				className={`${geistSans.variable} ${geistMono.variable} antialiased bg-slate-50 dark:bg-[#13161f] transition-colors duration-300`}>
 				<Providers>
 					<TooltipProvider>
 						<DefaultLayout>{children}</DefaultLayout>

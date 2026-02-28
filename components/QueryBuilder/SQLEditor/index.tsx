@@ -20,7 +20,7 @@ export default function SQLEditor() {
 	return (
 		<CodeMirror
 			value={value}
-			className='flex-1 text-xl h-full'
+			className='text-xl'
 			theme={themes.tokyoNight}
 			extensions={[
 				sql({ schema: derivedSchema, upperCaseKeywords: true }),
