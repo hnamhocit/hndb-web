@@ -4,112 +4,80 @@ import Link from 'next/link'
 import { useMemo } from 'react'
 
 import { downloadLinks } from '@/lib/downloads'
-import { siteLinks } from '@/lib/site-links'
 import { useLang } from '@/lib/use-lang'
 import { usePlatform } from '@/lib/use-platform'
-import { BoltIcon, LayersIcon, ShieldIcon } from 'lucide-react'
+import { BoltIcon, ShieldIcon } from 'lucide-react'
 
 import { osIcons, primaryButtonClass } from './shared'
 import { DownloadItem } from './types'
 
 export function HomeHeroSection() {
-	const { t } = useLang()
-	const platform = usePlatform()
+        const { t } = useLang()
+        const platform = usePlatform()
 
-	const osLinks = useMemo<DownloadItem[]>(
-		() => [
-			{
-				key: 'windows',
-				label: t('download.windows'),
-				note: t('download.windowsNote'),
-				href: downloadLinks.windows,
-				recommended: platform === 'windows',
-				Icon: osIcons.windows,
-			},
-			{
-				key: 'linux',
-				label: t('download.linux'),
-				note: t('download.linuxNote'),
-				href: downloadLinks.linux,
-				recommended: platform === 'linux',
-				Icon: osIcons.linux,
-			},
-		],
-		[platform, t],
-	)
+        const osLinks = useMemo<DownloadItem[]>(
+                () => [
+                        {
+                                key: 'windows',
+                                label: t('download.windows'),
+                                note: t('download.windowsNote'),
+                                href: downloadLinks.windows,
+                                recommended: platform === 'windows',
+                                Icon: osIcons.windows,
+                        },
+                        {
+                                key: 'linux',
+                                label: t('download.linux'),
+                                note: t('download.linuxNote'),
+                                href: downloadLinks.linux,
+                                recommended: platform === 'linux',
+                                Icon: osIcons.linux,
+                        },
+                ],
+                [platform, t],
+        )
 
-	const preferred = osLinks.find((item) => item.recommended)
-	const primaryDownload = {
-		label: preferred?.label ?? t('download.autoFallback'),
-		href: preferred?.href ?? downloadLinks.latest,
-	}
-	const downloadHint =
-		preferred ? t('download.autoCta') : t('download.availabilityNote')
+        const preferred = osLinks.find((item) => item.recommended)
+        const primaryDownload = {
+                label: preferred?.label ?? t('download.autoFallback'),
+                href: preferred?.href ?? downloadLinks.latest,
+        }
+        const downloadHint =
+                preferred ? t('download.autoCta') : t('download.availabilityNote')
 
-	return (
-		<section className='relative z-[1] mt-7 md:mt-9 grid gap-5 md:p-9 lg:grid-cols-[1.4fr_1fr] rounded-3xl'>
-			<div className='flex flex-col justify-center text-center md:text-left items-center md:items-start'>
-				<div className='inline-flex items-center rounded-full border border-primary/20 bg-primary/10 px-3 py-1 mb-6'>
-					<span className='flex h-2 w-2 rounded-full bg-primary mr-2 animate-pulse'></span>
-					<p className='font-mono text-xs font-semibold tracking-widest text-primary'>
-						{t('hero.badge')}
-					</p>
-				</div>
+        return (
+                <section className='relative z-[1] mt-10 md:mt-20 flex flex-col items-center justify-center text-center px-4'>
+                        <div className='inline-flex items-center rounded-full border border-primary/20 bg-primary/10 px-3 py-1 mb-6'>
+                                <span className='flex h-2 w-2 rounded-full bg-primary mr-2 animate-pulse'></span>
+                                <p className='font-mono text-xs font-semibold tracking-widest text-primary'>
+                                        {t('hero.badge')}
+                                </p>
+                        </div>
 
-				<h1 className='max-w-4xl text-3xl font-extrabold leading-[1.15] md:text-5xl 2xl:text-6xl tracking-tight text-foreground'>
-					{t('hero.title')}
-				</h1>
-				<p className='mt-5 max-w-2xl text-sm md:text-base text-muted-foreground leading-relaxed'>
-					{t('hero.description')}
-				</p>
+                        <h1 className='max-w-4xl text-3xl font-extrabold leading-[1.15] md:text-5xl 2xl:text-6xl tracking-tight text-foreground'>
+                                {t('hero.title')}
+                        </h1>
+                        <p className='mt-5 max-w-2xl text-sm md:text-base text-muted-foreground leading-relaxed'>
+                                {t('hero.description')}
+                        </p>
 
-				<div className='mt-8 flex flex-col sm:flex-row items-center gap-4'>
-					<Link
-						className={`${primaryButtonClass} w-full sm:w-auto`}
-						href={primaryDownload.href}>
-						<BoltIcon className='w-5 h-5 mr-2' />
-						{primaryDownload.label}
-					</Link>
-					<a
-						className='text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors underline-offset-8 hover:underline'
-						href='#demo'>
-						{t('hero.noLoginDemo')}
-					</a>
-				</div>
-				<p className='mt-4 text-xs text-muted-foreground/80 flex items-center'>
-					<ShieldIcon className='w-4 h-4 mr-1 opacity-50' />
-					{downloadHint}
-				</p>
-			</div>
-
-			<aside className='flex flex-col justify-center rounded-3xl border border-border/80 bg-background/50 p-5 md:p-7 shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.1)] backdrop-blur-xl mt-7 md:mt-0 transition-all hover:border-border hover:bg-background/80'>
-				<div className='inline-flex h-12 w-12 items-center justify-center rounded-xl border border-primary/10 bg-primary/5 shadow-sm mb-5'>
-					<LayersIcon className='w-6 h-6 text-primary' />
-				</div>
-
-				<h3 className='text-xl font-bold tracking-tight text-foreground'>
-					{t('download.title')}
-				</h3>
-
-				<p className='mt-2.5 text-sm text-muted-foreground leading-relaxed'>
-					{t('download.description')}
-				</p>
-
-				<div className='mt-8 flex flex-col gap-3'>
-					<Link
-						href='/download'
-						className='inline-flex h-11 items-center justify-center rounded-xl bg-foreground px-6 font-medium text-background transition-all hover:scale-[1.02] hover:bg-foreground/90 shadow-sm'>
-						{t('nav.download')}
-					</Link>
-					<a
-						href={siteLinks.docs}
-						target='_blank'
-						rel='noreferrer'
-						className='inline-flex h-11 items-center justify-center rounded-xl border border-border px-6 font-medium text-foreground transition-all hover:bg-secondary/70'>
-						{t('footer.help')}
-					</a>
-				</div>
-			</aside>
-		</section>
-	)
+                        <div className='mt-8 flex flex-col sm:flex-row items-center gap-4'>
+                                <Link
+                                        className={`${primaryButtonClass} w-full sm:w-auto px-8 h-12`}
+                                        href={primaryDownload.href}>
+                                        <BoltIcon className='w-5 h-5 mr-2' />
+                                        {primaryDownload.label}
+                                </Link>
+                                <a
+                                        className='text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors underline-offset-8 hover:underline ml-0 sm:ml-4'
+                                        href='#demo'>
+                                        {t('hero.noLoginDemo')}
+                                </a>
+                        </div>
+                        <p className='mt-6 text-xs text-muted-foreground/80 flex items-center'>
+                                <ShieldIcon className='w-4 h-4 mr-1 opacity-50' />
+                                {downloadHint}
+                        </p>
+                </section>
+        )
 }
