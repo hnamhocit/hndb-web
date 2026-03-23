@@ -26,14 +26,6 @@ export function HomeHeroSection() {
 				Icon: osIcons.windows,
 			},
 			{
-				key: 'macos',
-				label: t('download.macos'),
-				note: t('download.macosNote'),
-				href: downloadLinks.macos,
-				recommended: platform === 'macos',
-				Icon: osIcons.macos,
-			},
-			{
 				key: 'linux',
 				label: t('download.linux'),
 				note: t('download.linuxNote'),
@@ -50,6 +42,8 @@ export function HomeHeroSection() {
 		label: preferred?.label ?? t('download.autoFallback'),
 		href: preferred?.href ?? downloadLinks.latest,
 	}
+	const downloadHint =
+		preferred ? t('download.autoCta') : t('download.availabilityNote')
 
 	return (
 		<section className='relative z-[1] mt-8 md:mt-10 grid gap-6 md:p-12 lg:grid-cols-[1.4fr_1fr] rounded-3xl'>
@@ -69,14 +63,12 @@ export function HomeHeroSection() {
 				</p>
 
 				<div className='mt-8 flex flex-col sm:flex-row items-center gap-4'>
-					<a
+					<Link
 						className={`${primaryButtonClass} w-full sm:w-auto`}
-						href={primaryDownload.href}
-						target='_blank'
-						rel='noreferrer'>
+						href={primaryDownload.href}>
 						<BoltIcon className='w-5 h-5 mr-2' />
 						{primaryDownload.label}
-					</a>
+					</Link>
 					<a
 						className='text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors underline-offset-8 hover:underline'
 						href='#demo'>
@@ -85,7 +77,7 @@ export function HomeHeroSection() {
 				</div>
 				<p className='mt-4 text-xs text-muted-foreground/80 flex items-center'>
 					<ShieldIcon className='w-4 h-4 mr-1 opacity-50' />
-					{t('download.autoCta')}
+					{downloadHint}
 				</p>
 			</div>
 

@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { useMemo } from 'react'
 
 import { downloadLinks } from '@/lib/downloads'
@@ -30,14 +31,6 @@ export function HomeDownloadSection() {
 				Icon: osIcons.windows,
 			},
 			{
-				key: 'macos',
-				label: t('download.macos'),
-				note: t('download.macosNote'),
-				href: downloadLinks.macos,
-				recommended: platform === 'macos',
-				Icon: osIcons.macos,
-			},
-			{
 				key: 'linux',
 				label: t('download.linux'),
 				note: t('download.linuxNote'),
@@ -62,7 +55,7 @@ export function HomeDownloadSection() {
 				</p>
 			</div>
 
-			<div className='grid gap-6 sm:grid-cols-2 md:grid-cols-3 text-left'>
+			<div className='grid gap-6 sm:grid-cols-2 text-left'>
 				{osLinks.map((item) => (
 					<article
 						key={item.key}
@@ -84,25 +77,21 @@ export function HomeDownloadSection() {
 						<p className='mb-6 text-sm text-muted-foreground h-10'>
 							{item.note}
 						</p>
-						<a
+						<Link
 							className={`w-full ${item.recommended ? primaryButtonClass : secondaryButtonClass}`}
-							href={item.href}
-							target='_blank'
-							rel='noreferrer'>
+							href={item.href}>
 							{t('download.downloadNow')}
-						</a>
+						</Link>
 					</article>
 				))}
 			</div>
 
 			<div className='mt-8 pt-8 border-t border-border flex flex-wrap items-center justify-center gap-2 text-sm text-muted-foreground'>
-				<a
+				<Link
 					className='font-semibold hover:text-foreground transition-colors'
-					href={downloadLinks.latest}
-					target='_blank'
-					rel='noreferrer'>
-					{t('download.latest')} &rarr;
-				</a>
+					href={downloadLinks.latest}>
+					{t('download.viewInstallers')} &rarr;
+				</Link>
 			</div>
 		</section>
 	)

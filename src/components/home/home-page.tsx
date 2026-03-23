@@ -13,6 +13,7 @@ import { HomeFooter } from './home-footer'
 import { HomeHeroSection } from './home-hero-section'
 import { HomeMetricsSection } from './home-metrics-section'
 import { HomeReviewsSection } from './home-reviews-section'
+import { HomeSectionNav } from './home-section-nav'
 import { HomeSponsorsSection } from './home-sponsors-section'
 
 const reveal = {
@@ -42,37 +43,74 @@ export default function HomePage() {
 			initial={{ opacity: 0, y: 8 }}
 			animate={{ opacity: 1, y: 0 }}
 			transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-			className='relative w-full px-4 pb-24 pt-6 md:px-8 xl:px-16 overflow-hidden'>
-			<motion.div {...reveal}>
-				<HomeHeroSection />
-			</motion.div>
-			<motion.div {...reveal}>
-				<HomeSponsorsSection />
-			</motion.div>
-			<motion.div {...reveal}>
-				<HomeMetricsSection />
-			</motion.div>
-			<motion.div {...reveal}>
-				<HomeFeaturesSection />
-			</motion.div>
-			<motion.div {...reveal}>
-				<HomeCustomizationSection />
-			</motion.div>
-			<motion.div {...reveal}>
-				<HomeCustomersSection />
-			</motion.div>
-			<motion.div {...reveal}>
-				<HomeReviewsSection />
-			</motion.div>
-			<motion.div {...reveal}>
-				<HomeDemoSection />
-			</motion.div>
-			<motion.div {...reveal}>
-				<HomeDownloadSection />
-			</motion.div>
-			<motion.div {...reveal}>
-				<HomeFooter />
-			</motion.div>
+			className='relative w-full overflow-hidden px-4 pb-24 pt-6 md:px-8 xl:px-16'>
+			<div className='relative z-[1]'>
+				<section
+					id='overview'
+					className='scroll-mt-28 md:scroll-mt-32'>
+					<motion.div {...reveal}>
+						<HomeHeroSection />
+					</motion.div>
+				</section>
+
+				<HomeSectionNav variant='mobile' />
+
+				<section
+					id='backers'
+					className='scroll-mt-28 md:scroll-mt-32'>
+					<motion.div {...reveal}>
+						<HomeSponsorsSection />
+					</motion.div>
+				</section>
+
+				<section
+					id='stats'
+					className='scroll-mt-28 md:scroll-mt-32'>
+					<motion.div {...reveal}>
+						<HomeMetricsSection />
+					</motion.div>
+				</section>
+
+				<motion.div {...reveal}>
+					<HomeFeaturesSection />
+				</motion.div>
+
+				<motion.div {...reveal}>
+					<HomeCustomizationSection />
+				</motion.div>
+
+				<section
+					id='customers'
+					className='scroll-mt-28 md:scroll-mt-32'>
+					<motion.div {...reveal}>
+						<HomeCustomersSection />
+					</motion.div>
+				</section>
+
+				<section
+					id='reviews'
+					className='scroll-mt-28 md:scroll-mt-32'>
+					<motion.div {...reveal}>
+						<HomeReviewsSection />
+					</motion.div>
+				</section>
+
+				<motion.div {...reveal}>
+					<HomeDemoSection />
+				</motion.div>
+
+				<motion.div {...reveal}>
+					<HomeDownloadSection />
+				</motion.div>
+
+				<motion.div {...reveal}>
+					<HomeFooter />
+				</motion.div>
+			</div>
+
+			<div className='pointer-events-none fixed left-4 top-32 z-[45] hidden min-[1680px]:block md:left-8 xl:left-16'>
+				<HomeSectionNav variant='desktop' />
+			</div>
 		</motion.main>
 	)
 }

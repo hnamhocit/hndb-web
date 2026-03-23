@@ -1,18 +1,15 @@
 export type Platform = 'windows' | 'macos' | 'linux' | 'other'
 
-const githubLatest = 'https://github.com/hnamhocit/hndb-web/releases/latest'
+function createDownloadPageUrl(platform?: Exclude<Platform, 'macos' | 'other'>) {
+	if (!platform) return '/download'
+	return `/download?platform=${platform}`
+}
 
 export const downloadLinks = {
-	windows:
-		process.env.NEXT_PUBLIC_DOWNLOAD_WINDOWS_URL ||
-		'https://github.com/hnamhocit/hndb-web/releases/latest',
-	macos:
-		process.env.NEXT_PUBLIC_DOWNLOAD_MACOS_URL ||
-		'https://github.com/hnamhocit/hndb-web/releases/latest',
-	linux:
-		process.env.NEXT_PUBLIC_DOWNLOAD_LINUX_URL ||
-		'https://github.com/hnamhocit/hndb-web/releases/latest',
-	latest: process.env.NEXT_PUBLIC_DOWNLOAD_LATEST_URL || githubLatest,
+	windows: createDownloadPageUrl('windows'),
+	macos: createDownloadPageUrl(),
+	linux: createDownloadPageUrl('linux'),
+	latest: createDownloadPageUrl(),
 }
 
 export function detectPlatform(userAgent: string): Platform {

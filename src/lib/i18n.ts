@@ -10,12 +10,31 @@ export const messages: Record<Lang, MessageTree> = {
 	vi: {
 		brand: 'HNDB',
 		nav: {
+			home: 'Trang chủ',
 			features: 'Tính năng',
 			customization: 'Tùy chỉnh',
 			demo: 'Giao diện',
 			download: 'Tải app',
 			blog: 'Blog',
+			issues: 'Báo lỗi',
+			about: 'Về mình',
+			featureRequest: 'Yêu cầu tính năng',
 			enter: 'Đăng nhập',
+		},
+		homeToc: {
+			badge: 'Điều hướng nhanh',
+			title: 'Mục lục trang Home',
+			description:
+				'Nhảy nhanh tới từng phần nội dung mà không cần kéo tìm thủ công.',
+			overview: 'Tổng quan',
+			backers: 'Hậu thuẫn',
+			stats: 'Điểm nhấn',
+			features: 'Tính năng',
+			customization: 'Tùy chỉnh',
+			customers: 'Được tin dùng',
+			reviews: 'Đánh giá',
+			demo: 'Demo',
+			download: 'Tải app',
 		},
 		hero: {
 			badge: 'HNDB • MODERN RDBMS CLIENT',
@@ -89,9 +108,39 @@ export const messages: Record<Lang, MessageTree> = {
 			linuxNote: 'AppImage / .deb / .rpm',
 			autoCta:
 				'Đã tự động chọn phiên bản phù hợp nhất với máy tính của bạn.',
+			availabilityNote: 'Hiện tại HNDB mới có bản cho Windows và Linux.',
 			autoFallback: 'Tải bản mới nhất',
 			viewInstallers: 'Tùy chọn tải xuống khác',
 			downloadNow: 'Tải ngay',
+		},
+		about: {
+			badge: 'ABOUT ME',
+			title: 'Mình đang xây HNDB theo hướng gọn, nhanh và thực dụng.',
+			description:
+				'Một SQL client tập trung vào trải nghiệm dùng hằng ngày: ít nhiễu, phản hồi nhanh và đủ linh hoạt cho workflow riêng của bạn.',
+			introTitle: 'Điều mình đang làm',
+			introBody:
+				'HNDB được phát triển để việc làm việc với database bớt nặng nề hơn. Mình ưu tiên hiệu năng, sự rõ ràng trong giao diện và khả năng tùy biến sâu cho những ai sống cùng query mỗi ngày.',
+			valuesTitle: 'Ba nguyên tắc cốt lõi',
+			value1Title: 'Nhanh trước',
+			value1Text:
+				'Tương tác phải nhẹ, phản hồi sớm và không cản nhịp làm việc.',
+			value2Title: 'Gọn nhưng không nông',
+			value2Text:
+				'Bớt menu thừa, giữ lại đúng những chỗ cần sức mạnh và khả năng kiểm soát.',
+			value3Title: 'Build cùng người dùng',
+			value3Text:
+				'Bug report và feature request là đầu vào trực tiếp cho thứ tự ưu tiên của sản phẩm.',
+			linksTitle: 'Liên kết',
+			linkWebsite: 'Website cá nhân',
+			linkRepo: 'Source code',
+			linkDocs: 'Tài liệu',
+			linkEmail: 'Email',
+			ctaTitle: 'Muốn góp ý hoặc theo dõi tiến độ?',
+			ctaDescription:
+				'Mở issue khi bạn gặp lỗi, hoặc gửi feature request nếu có workflow bạn muốn HNDB hỗ trợ tốt hơn.',
+			ctaIssues: 'Xem issues',
+			ctaFeature: 'Gửi feature request',
 		},
 		footer: {
 			tagline:
@@ -167,12 +216,31 @@ export const messages: Record<Lang, MessageTree> = {
 				'Missing Supabase configuration. Please check your environment variables.',
 		},
 		nav: {
+			home: 'Home',
 			features: 'Features',
 			customization: 'Customization',
 			demo: 'Interface',
 			download: 'Download',
 			blog: 'Blog',
+			issues: 'Issues',
+			about: 'About Me',
+			featureRequest: 'Feature Request',
 			enter: 'Sign In',
+		},
+		homeToc: {
+			badge: 'Quick Nav',
+			title: 'On This Page',
+			description:
+				'Jump between landing sections without hunting through the page.',
+			overview: 'Overview',
+			backers: 'Backers',
+			stats: 'Highlights',
+			features: 'Features',
+			customization: 'Customization',
+			customers: 'Adoption',
+			reviews: 'Reviews',
+			demo: 'Demo',
+			download: 'Download',
 		},
 		hero: {
 			badge: 'HNDB • MODERN RDBMS CLIENT',
@@ -246,9 +314,40 @@ export const messages: Record<Lang, MessageTree> = {
 			linuxNote: 'AppImage / .deb / .rpm',
 			autoCta:
 				'Automatically selected the best version for your current system.',
+			availabilityNote:
+				'HNDB is currently available for Windows and Linux only.',
 			autoFallback: 'Download latest release',
 			viewInstallers: 'Other download options',
 			downloadNow: 'Download now',
+		},
+		about: {
+			badge: 'ABOUT ME',
+			title: "I'm building HNDB to feel fast, calm, and practical.",
+			description:
+				'A SQL client focused on everyday usability: less noise, quick feedback, and enough flexibility to match your own workflow.',
+			introTitle: "What I'm building",
+			introBody:
+				'HNDB is being shaped to make database work feel lighter. I care about performance, interface clarity, and deep customization for people who live inside queries every day.',
+			valuesTitle: 'Three product principles',
+			value1Title: 'Speed first',
+			value1Text:
+				'Interactions should stay lightweight, responsive, and never interrupt your momentum.',
+			value2Title: 'Minimal, not shallow',
+			value2Text:
+				'Remove the clutter, but keep the control where advanced workflows actually need it.',
+			value3Title: 'Built with users',
+			value3Text:
+				'Bug reports and feature requests directly influence what gets prioritized next.',
+			linksTitle: 'Links',
+			linkWebsite: 'Personal Website',
+			linkRepo: 'Source code',
+			linkDocs: 'Documentation',
+			linkEmail: 'Email',
+			ctaTitle: 'Want to help shape the roadmap?',
+			ctaDescription:
+				'Open an issue when something breaks, or send a feature request when there is a workflow you want prioritized.',
+			ctaIssues: 'Browse issues',
+			ctaFeature: 'Send feature request',
 		},
 		footer: {
 			tagline:

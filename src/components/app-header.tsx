@@ -3,30 +3,33 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { MouseEvent, useEffect, useMemo, useState } from 'react'
+import { MouseEvent } from 'react'
 
 import { ThemeToggle } from '@/components/theme-toggle'
 import { useLang } from '@/lib/use-lang'
+import { siteLinks } from '@/lib/site-links'
 
 interface NavItem {
 	key:
-		| 'features'
-		| 'customization'
-		| 'demo'
-		| 'download'
+		| 'home'
 		| 'blog'
-		| 'enter'
+		| 'issues'
+		| 'about'
+		| 'featureRequest'
 	href: string
-	mode: 'hash' | 'path'
+	mode: 'external' | 'path'
 }
 
 const navItems: NavItem[] = [
-	{ key: 'features', href: '/#features', mode: 'hash' },
-	{ key: 'customization', href: '/#customization', mode: 'hash' },
-	{ key: 'demo', href: '/#demo', mode: 'hash' },
-	{ key: 'download', href: '/#download', mode: 'hash' },
-	{ key: 'blog', href: '/blog', mode: 'path' },
-	{ key: 'enter', href: '/enter', mode: 'path' },
+	{ key: 'home', href: '/', mode: 'path' },
+	{ key: 'blog', href: siteLinks.blog, mode: 'path' },
+	{ key: 'issues', href: siteLinks.issues, mode: 'external' },
+	{ key: 'about', href: siteLinks.about, mode: 'path' },
+	{
+		key: 'featureRequest',
+		href: siteLinks.featureRequest,
+		mode: 'external',
+	},
 ]
 
 function LangSwitcher({
@@ -60,60 +63,25 @@ function LangSwitcher({
 export function AppHeader() {
 	const pathname = usePathname()
 	const { lang, setLang, t } = useLang()
-	const [hash, setHash] = useState('')
-
-	useEffect(() => {
-		const updateHash = () => {
-			setHash(window.location.hash)
-		}
-
-		updateHash()
-		window.addEventListener('hashchange', updateHash)
-		return () => window.removeEventListener('hashchange', updateHash)
-	}, [pathname])
-
-	const activeMap = useMemo(() => {
-		const map = new Map<NavItem['key'], boolean>()
-
-		for (const item of navItems) {
-			if (item.mode === 'path') {
-				const active =
-					pathname === item.href ||
-					pathname.startsWith(`${item.href}/`)
-				map.set(item.key, active)
-				continue
-			}
-
-			const targetHash = item.href.replace('/#', '#')
-			const active =
-				pathname === '/' &&
-				(hash === targetHash || (hash === '' && item.key === 'features'))
-			map.set(item.key, active)
-		}
-
-		return map
-	}, [hash, pathname])
 
 	const handleNavClick = (
 		event: MouseEvent<HTMLAnchorElement>,
 		item: NavItem,
 	) => {
-		if (item.mode !== 'hash' || pathname !== '/') return
+		if (item.key !== 'home' || pathname !== '/') return
 
 		event.preventDefault()
+		window.scrollTo({ top: 0, behavior: 'smooth' })
 
-		const id = item.href.split('#')[1]
-		if (!id) return
-
-		const target = document.getElementById(id)
-		if (!target) {
-			window.location.assign(item.href)
-			return
+		if (window.location.hash) {
+			window.history.replaceState(null, '', '/')
 		}
+	}
 
-		target.scrollIntoView({ behavior: 'smooth', block: 'start' })
-		window.history.replaceState(null, '', `/#${id}`)
-		setHash(`#${id}`)
+	const isActive = (item: NavItem) => {
+		if (item.mode !== 'path') return false
+		if (item.href === '/') return pathname === '/'
+		return pathname === item.href || pathname.startsWith(`${item.href}/`)
 	}
 
 	return (
@@ -143,16 +111,29 @@ export function AppHeader() {
 
 				<nav className='flex w-full overflow-x-auto pb-1 md:pb-0 md:w-auto md:flex-wrap gap-x-6 gap-y-2 text-sm font-medium whitespace-nowrap scrollbar-hide'>
 					{navItems.map((item) => {
-						const active = activeMap.get(item.key) || false
-						return (
-								<Link
+						const active = isActive(item)
+						const className = `transition-colors ${active ? 'text-primary' : 'text-muted-foreground hover:text-primary'}`
+
+						if (item.mode === 'external') {
+							return (
+								<a
 									key={item.key}
 									href={item.href}
-									onClick={(event) =>
-										handleNavClick(event, item)
-									}
-									aria-current={active ? 'page' : undefined}
-									className={`transition-colors ${active ? 'text-primary' : 'text-muted-foreground hover:text-primary'}`}>
+									target='_blank'
+									rel='noreferrer'
+									className={className}>
+									{t(`nav.${item.key}`)}
+								</a>
+							)
+						}
+
+						return (
+							<Link
+								key={item.key}
+								href={item.href}
+								onClick={(event) => handleNavClick(event, item)}
+								aria-current={active ? 'page' : undefined}
+								className={className}>
 								{t(`nav.${item.key}`)}
 							</Link>
 						)
