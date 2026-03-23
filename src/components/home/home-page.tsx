@@ -43,7 +43,7 @@ export default function HomePage() {
 			initial={{ opacity: 0, y: 8 }}
 			animate={{ opacity: 1, y: 0 }}
 			transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-			className='relative w-full overflow-hidden px-4 pb-24 pt-6 md:px-8 xl:px-16'>
+			className='relative mx-auto w-full max-w-[1120px] overflow-hidden px-4 pb-20 pt-5 md:px-7 xl:max-w-[1240px] xl:px-10'>
 			<div className='relative z-[1]'>
 				<section
 					id='overview'

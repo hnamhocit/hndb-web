@@ -46,7 +46,7 @@ export function HomeHeroSection() {
 		preferred ? t('download.autoCta') : t('download.availabilityNote')
 
 	return (
-		<section className='relative z-[1] mt-8 md:mt-10 grid gap-6 md:p-12 lg:grid-cols-[1.4fr_1fr] rounded-3xl'>
+		<section className='relative z-[1] mt-7 md:mt-9 grid gap-5 md:p-9 lg:grid-cols-[1.4fr_1fr] rounded-3xl'>
 			<div className='flex flex-col justify-center text-center md:text-left items-center md:items-start'>
 				<div className='inline-flex items-center rounded-full border border-primary/20 bg-primary/10 px-3 py-1 mb-6'>
 					<span className='flex h-2 w-2 rounded-full bg-primary mr-2 animate-pulse'></span>
@@ -55,10 +55,10 @@ export function HomeHeroSection() {
 					</p>
 				</div>
 
-				<h1 className='max-w-4xl text-4xl font-extrabold leading-[1.15] md:text-6xl tracking-tight text-foreground'>
+				<h1 className='max-w-4xl text-3xl font-extrabold leading-[1.15] md:text-5xl 2xl:text-6xl tracking-tight text-foreground'>
 					{t('hero.title')}
 				</h1>
-				<p className='mt-6 max-w-2xl text-base md:text-lg text-muted-foreground leading-relaxed'>
+				<p className='mt-5 max-w-2xl text-sm md:text-base text-muted-foreground leading-relaxed'>
 					{t('hero.description')}
 				</p>
 
@@ -81,7 +81,7 @@ export function HomeHeroSection() {
 				</p>
 			</div>
 
-			<aside className='flex flex-col justify-center rounded-3xl border border-border/80 bg-background/50 p-6 md:p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.1)] backdrop-blur-xl mt-8 md:mt-0 transition-all hover:border-border hover:bg-background/80'>
+			<aside className='flex flex-col justify-center rounded-3xl border border-border/80 bg-background/50 p-5 md:p-7 shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.1)] backdrop-blur-xl mt-7 md:mt-0 transition-all hover:border-border hover:bg-background/80'>
 				<div className='inline-flex h-12 w-12 items-center justify-center rounded-xl border border-primary/10 bg-primary/5 shadow-sm mb-5'>
 					<LayersIcon className='w-6 h-6 text-primary' />
 				</div>

@@ -42,13 +42,13 @@ export const homePanelClass =
 	'rounded-3xl border border-border bg-card/60 backdrop-blur-xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.1)] transition-all duration-300 hover:bg-card/80 hover:border-ring/30 hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)]'
 
 export const iconBadgeClass =
-	'inline-flex h-10 w-10 items-center justify-center rounded-xl border border-primary/20 bg-primary/10 text-primary shadow-sm'
+	'inline-flex h-9 w-9 items-center justify-center rounded-xl border border-primary/20 bg-primary/10 text-primary shadow-sm'
 
 export const primaryButtonClass =
-	'inline-flex items-center justify-center rounded-full bg-primary px-6 py-2.5 font-medium text-primary-foreground transition-all hover:scale-105 hover:bg-primary/90 shadow-sm'
+	'inline-flex items-center justify-center rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition-all hover:scale-105 hover:bg-primary/90 shadow-sm'
 
 export const secondaryButtonClass =
-	'inline-flex items-center justify-center rounded-full border border-border bg-secondary/80 backdrop-blur-md px-6 py-2.5 font-medium text-secondary-foreground transition-all hover:bg-secondary hover:border-ring/50'
+	'inline-flex items-center justify-center rounded-full border border-border bg-secondary/80 backdrop-blur-md px-5 py-2.5 text-sm font-medium text-secondary-foreground transition-all hover:bg-secondary hover:border-ring/50'
 
 export const sponsors = [
 	'Y Combinator',

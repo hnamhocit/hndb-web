@@ -11,11 +11,11 @@ import { siteLinks } from '@/lib/site-links'
 
 interface NavItem {
 	key:
-		| 'home'
-		| 'blog'
-		| 'issues'
-		| 'about'
-		| 'featureRequest'
+	| 'home'
+	| 'blog'
+	| 'issues'
+	| 'about'
+	| 'featureRequest'
 	href: string
 	mode: 'external' | 'path'
 }
@@ -85,8 +85,8 @@ export function AppHeader() {
 	}
 
 	return (
-		<div className='px-4 pt-6 md:px-8 xl:px-16'>
-			<header className='sticky top-4 z-50 flex flex-col md:flex-row items-center justify-between gap-4 rounded-[2rem] md:rounded-full border border-border bg-background/70 px-5 py-3 backdrop-blur-xl shadow-sm transition-all'>
+		<div className='mx-auto w-full max-w-[1120px] px-4 pt-5 md:px-7 xl:max-w-[1240px] xl:px-10'>
+			<header className='sticky top-4 z-50 flex flex-col md:flex-row items-center justify-between gap-3 rounded-[2rem] md:rounded-full border border-border bg-background/70 px-4 py-2.5 backdrop-blur-xl shadow-sm transition-all'>
 				<div className='flex w-full md:w-auto items-center justify-between'>
 					<Link
 						className='inline-flex items-center gap-3 font-bold tracking-wider'

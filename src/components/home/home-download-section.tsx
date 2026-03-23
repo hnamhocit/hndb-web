@@ -45,12 +45,12 @@ export function HomeDownloadSection() {
 	return (
 		<section
 			id='download'
-			className={`relative z-[1] mt-8 md:mt-12 p-6 md:p-12 ${homePanelClass} text-center scroll-mt-28 md:scroll-mt-32`}>
-			<div className='max-w-2xl mx-auto mb-10'>
-				<h2 className='text-3xl md:text-4xl font-extrabold tracking-tight text-foreground'>
+			className={`relative z-[1] mt-8 md:mt-10 p-6 md:p-10 ${homePanelClass} text-center scroll-mt-28 md:scroll-mt-32`}>
+			<div className='max-w-2xl mx-auto mb-8'>
+				<h2 className='text-2xl md:text-3xl 2xl:text-4xl font-extrabold tracking-tight text-foreground'>
 					{t('download.title')}
 				</h2>
-				<p className='mt-4 text-muted-foreground text-base md:text-lg'>
+				<p className='mt-3.5 text-muted-foreground text-sm md:text-base'>
 					{t('download.description')}
 				</p>
 			</div>

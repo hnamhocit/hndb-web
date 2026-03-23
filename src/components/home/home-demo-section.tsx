@@ -94,35 +94,35 @@ export function HomeDemoSection() {
 	return (
 		<section
 			id='demo'
-			className={`relative z-[1] mt-8 md:mt-12 p-6 md:p-12 ${homePanelClass} scroll-mt-28 md:scroll-mt-32`}>
-			<div className='text-center max-w-2xl mx-auto mb-10'>
+			className={`relative z-[1] mt-8 md:mt-10 p-6 md:p-10 ${homePanelClass} scroll-mt-28 md:scroll-mt-32`}>
+			<div className='text-center max-w-2xl mx-auto mb-8'>
 				<p className='font-mono text-xs font-bold tracking-widest text-primary mb-3 uppercase'>
 					{t('demo.badge')}
 				</p>
-				<h2 className='text-3xl md:text-4xl font-extrabold tracking-tight text-foreground'>
+				<h2 className='text-2xl md:text-3xl 2xl:text-4xl font-extrabold tracking-tight text-foreground'>
 					{t('demo.title')}
 				</h2>
-				<p className='mt-4 text-muted-foreground text-base md:text-lg'>
+				<p className='mt-3.5 text-muted-foreground text-sm md:text-base'>
 					{t('demo.description')}
 				</p>
 			</div>
 
 			{/* Desktop Mockup Section */}
-			<div className='max-w-4xl mx-auto relative'>
+			<div className='max-w-3xl md:max-w-4xl mx-auto relative'>
 				<button
 					onClick={handlePrev}
-					className='absolute left-0 top-1/2 -translate-y-1/2 -ml-4 md:-ml-12 z-10 p-2 md:p-3 rounded-full bg-background/80 backdrop-blur-md border border-border shadow-lg hover:scale-110 transition-transform'>
-					<ChevronLeft className='w-5 h-5 md:w-6 md:h-6' />
+					className='absolute left-0 top-1/2 -translate-y-1/2 -ml-2 md:-ml-12 z-10 p-1.5 md:p-3 rounded-full bg-background/80 backdrop-blur-md border border-border shadow-lg hover:scale-110 transition-transform'>
+					<ChevronLeft className='w-4 h-4 md:w-6 md:h-6' />
 				</button>
 
 				<button
 					onClick={handleNext}
-					className='absolute right-0 top-1/2 -translate-y-1/2 -mr-4 md:-mr-12 z-10 p-2 md:p-3 rounded-full bg-background/80 backdrop-blur-md border border-border shadow-lg hover:scale-110 transition-transform'>
-					<ChevronRight className='w-5 h-5 md:w-6 md:h-6' />
+					className='absolute right-0 top-1/2 -translate-y-1/2 -mr-2 md:-mr-12 z-10 p-1.5 md:p-3 rounded-full bg-background/80 backdrop-blur-md border border-border shadow-lg hover:scale-110 transition-transform'>
+					<ChevronRight className='w-4 h-4 md:w-6 md:h-6' />
 				</button>
 
 				{/* Mockup Frame */}
-				<div className='relative mx-auto border-gray-900 dark:border-gray-800 bg-gray-900 dark:bg-gray-800 border-[6px] rounded-t-2xl md:border-[16px] md:rounded-t-3xl shadow-2xl overflow-hidden aspect-[16/10] w-full max-w-[1000px]'>
+				<div className='relative mx-auto border-gray-900 dark:border-gray-800 bg-gray-900 dark:bg-gray-800 border-[5px] rounded-t-2xl md:border-[16px] md:rounded-t-3xl shadow-2xl overflow-hidden aspect-[16/10] w-[92%] sm:w-full max-w-[900px] md:max-w-[1000px]'>
 					<div className='relative h-full w-full bg-background overflow-hidden flex items-center justify-center'>
 						<AnimatePresence mode='wait'>
 							<motion.div
@@ -146,7 +146,7 @@ export function HomeDemoSection() {
 					</div>
 				</div>
 				{/* Mockup Stand/Base */}
-				<div className='relative mx-auto bg-gray-800 dark:bg-gray-700/80 rounded-b-xl h-[12px] w-[90%] md:h-[24px]'>
+				<div className='relative mx-auto bg-gray-800 dark:bg-gray-700/80 rounded-b-xl h-[10px] w-[82%] sm:w-[90%] md:h-[24px]'>
 					<div className='absolute left-1/2 top-0 -translate-x-1/2 rounded-b-lg w-[30%] h-[4px] md:h-[8px] bg-gray-950 dark:bg-gray-900'></div>
 				</div>
 
@@ -162,12 +162,12 @@ export function HomeDemoSection() {
 							<h3 className='text-xl md:text-2xl font-bold text-foreground mb-3'>
 								{lang === 'vi' ?
 									demoSlides[currentIndex].titleVi
-								:	demoSlides[currentIndex].titleEn}
+									: demoSlides[currentIndex].titleEn}
 							</h3>
 							<p className='text-muted-foreground text-sm md:text-base'>
 								{lang === 'vi' ?
 									demoSlides[currentIndex].descVi
-								:	demoSlides[currentIndex].descEn}
+									: demoSlides[currentIndex].descEn}
 							</p>
 						</motion.div>
 					</AnimatePresence>

@@ -1,22 +1,16 @@
 import './globals.css'
 
 import type { Metadata } from 'next'
-import localFont from 'next/font/local'
+import { Inter } from 'next/font/google'
 import { ReactNode } from 'react'
 
 import { AppHeader } from '@/components/app-header'
 import { AuthStoreBootstrap } from '@/components/auth-store-bootstrap'
 import { ScrollToTopButton } from '@/components/scroll-to-top-button'
 
-const geistSans = localFont({
-	src: '../../node_modules/geist/dist/fonts/geist-sans/Geist-Variable.woff2',
-	variable: '--font-geist-sans',
-	display: 'swap',
-})
-
-const geistMono = localFont({
-	src: '../../node_modules/geist/dist/fonts/geist-mono/GeistMono-Variable.woff2',
-	variable: '--font-geist-mono',
+const inter = Inter({
+	subsets: ['latin'],
+	variable: '--font-inter',
 	display: 'swap',
 })
 
@@ -61,7 +55,7 @@ export default function RootLayout({
 				/>
 			</head>
 			<body
-				className={`${geistSans.variable} ${geistMono.variable} min-h-screen bg-background text-foreground antialiased`}>
+				className={`${inter.variable} min-h-screen bg-background text-foreground antialiased`}>
 				<AuthStoreBootstrap />
 				<AppHeader />
 				{children}

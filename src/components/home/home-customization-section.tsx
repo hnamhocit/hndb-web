@@ -39,20 +39,20 @@ export function HomeCustomizationSection() {
 	return (
 		<section
 			id='customization'
-			className={`relative z-[1] mt-8 md:mt-12 p-6 md:p-12 ${homePanelClass} scroll-mt-28 md:scroll-mt-32`}>
+			className={`relative z-[1] mt-8 md:mt-10 p-6 md:p-10 ${homePanelClass} scroll-mt-28 md:scroll-mt-32`}>
 			<div className='max-w-2xl text-center md:text-left mx-auto md:mx-0'>
 				<p className='font-mono text-xs font-bold tracking-widest text-primary mb-3 uppercase'>
 					{t('customization.badge')}
 				</p>
-				<h2 className='text-3xl md:text-4xl font-extrabold tracking-tight text-foreground'>
+				<h2 className='text-2xl md:text-3xl 2xl:text-4xl font-extrabold tracking-tight text-foreground'>
 					{t('customization.title')}
 				</h2>
-				<p className='mt-4 text-base md:text-lg text-muted-foreground'>
+				<p className='mt-3.5 text-sm md:text-base text-muted-foreground'>
 					{t('customization.description')}
 				</p>
 			</div>
 
-			<div className='mt-10 grid gap-4 sm:grid-cols-2 xl:grid-cols-4'>
+			<div className='mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-4'>
 				{customizationItems.map((item, index) => (
 					<article
 						key={index}
