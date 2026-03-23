@@ -19,7 +19,6 @@ export const messages: Record<Lang, MessageTree> = {
 			issues: 'Báo lỗi',
 			about: 'Về mình',
 			featureRequest: 'Yêu cầu tính năng',
-			enter: 'Đăng nhập',
 		},
 		homeToc: {
 			badge: 'Điều hướng nhanh',
@@ -41,15 +40,7 @@ export const messages: Record<Lang, MessageTree> = {
 			title: 'Desktop SQL Client tối giản. Tập trung vào trải nghiệm của bạn.',
 			description:
 				'Không cồng kềnh, không tính năng thừa. HNDB mang lại trải nghiệm truy vấn cơ sở dữ liệu siêu tốc với giao diện gọn gàng và khả năng tùy biến thông số sâu sắc.',
-			login: 'Đăng nhập / Đăng ký',
 			noLoginDemo: 'Xem giao diện demo',
-		},
-		authCard: {
-			title: 'Đồng bộ cấu hình',
-			description:
-				'Đăng nhập để đồng bộ các thiết lập tùy chỉnh và query history của bạn qua Cloud, hoặc sử dụng offline ngay lập tức.',
-			enter: 'Tới trang Đăng nhập',
-			skip: 'Dùng thử không cần tài khoản',
 		},
 		stats: {
 			firstLabel: '< 50ms',
@@ -151,26 +142,15 @@ export const messages: Record<Lang, MessageTree> = {
 			legal: 'Quyền riêng tư',
 			rights: 'All rights reserved.',
 		},
-		enter: {
-			back: 'Về trang chủ',
-			title: 'Đăng nhập & Đồng bộ',
+		authCallback: {
+			badge: 'AUTH CALLBACK',
+			title: 'Xác thực thành công',
 			description:
-				'Đồng bộ an toàn các cấu hình kết nối, snippets và lịch sử truy vấn của bạn qua Cloud, hoặc sử dụng offline hoàn toàn không cần tài khoản.',
-			demo: 'Dùng thử ngay',
-			onboard: 'Tài liệu API & Cài đặt',
-			email: 'Địa chỉ Email',
-			password: 'Mật khẩu',
-			signIn: 'Đăng nhập',
-			signUp: 'Tạo tài khoản',
-			logout: 'Đăng xuất',
-			signInGoogle: 'Tiếp tục với Google',
-			signInGithub: 'Tiếp tục với GitHub',
-			or: 'Hoặc',
-			session: 'Đang đăng nhập với',
-			successSignUp:
-				'Đăng ký thành công. Hãy kiểm tra email để xác minh.',
-			envMissing:
-				'Thiếu cấu hình Supabase. Vui lòng kiểm tra các biến môi trường.',
+				'Web đang chuyển bạn về ứng dụng HNDB để hoàn tất đăng nhập.',
+			autoAttempt: 'Đang thử mở ứng dụng tự động...',
+			openApp: 'Mở app thủ công',
+			backHome: 'Về trang chủ',
+			closeHint: 'Bạn có thể đóng tab trình duyệt này ngay bây giờ.',
 		},
 		social: {
 			sponsors: 'ĐƯỢC HỖ TRỢ BỞI CÁC QUỸ HÀNG ĐẦU',
@@ -195,25 +175,15 @@ export const messages: Record<Lang, MessageTree> = {
 	},
 	en: {
 		brand: 'HNDB',
-		enter: {
-			back: 'Back to Home',
-			title: 'Sign In & Sync',
+		authCallback: {
+			badge: 'AUTH CALLBACK',
+			title: 'Authentication successful',
 			description:
-				'Securely sync your connection profiles, snippets, and query history across devices, or stay completely offline without an account.',
-			demo: 'Try it now',
-			onboard: 'API & Setup Docs',
-			email: 'Email address',
-			password: 'Password',
-			signIn: 'Sign In',
-			signUp: 'Create account',
-			logout: 'Sign Out',
-			signInGoogle: 'Continue with Google',
-			signInGithub: 'Continue with GitHub',
-			or: 'Or',
-			session: 'Signed in as',
-			successSignUp: 'Sign-up successful. Please verify your email.',
-			envMissing:
-				'Missing Supabase configuration. Please check your environment variables.',
+				'We are redirecting you back to the HNDB app to finish sign-in.',
+			autoAttempt: 'Trying to open the app automatically...',
+			openApp: 'Open app manually',
+			backHome: 'Back to home',
+			closeHint: 'You can close this browser tab now.',
 		},
 		nav: {
 			home: 'Home',
@@ -225,7 +195,6 @@ export const messages: Record<Lang, MessageTree> = {
 			issues: 'Issues',
 			about: 'About Me',
 			featureRequest: 'Feature Request',
-			enter: 'Sign In',
 		},
 		homeToc: {
 			badge: 'Quick Nav',
@@ -247,15 +216,7 @@ export const messages: Record<Lang, MessageTree> = {
 			title: 'A minimalist SQL Client. Built for your workflow.',
 			description:
 				'No bloat, no unnecessary features. HNDB delivers a lightning-fast database querying experience with a clean UI and deep parameter customizability.',
-			login: 'Sign in / Sign up',
 			noLoginDemo: 'View interface demo',
-		},
-		authCard: {
-			title: 'Sync your setup',
-			description:
-				'Sign in to sync your custom configurations and query history across devices, or start using it offline instantly.',
-			enter: 'Go to Sign In',
-			skip: 'Try without an account',
 		},
 		stats: {
 			firstLabel: '< 50ms',

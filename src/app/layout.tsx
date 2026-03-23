@@ -5,7 +5,6 @@ import { Inter } from 'next/font/google'
 import { ReactNode } from 'react'
 
 import { AppHeader } from '@/components/app-header'
-import { AuthStoreBootstrap } from '@/components/auth-store-bootstrap'
 import { ScrollToTopButton } from '@/components/scroll-to-top-button'
 
 const inter = Inter({
@@ -56,7 +55,6 @@ export default function RootLayout({
 			</head>
 			<body
 				className={`${inter.variable} min-h-screen bg-background text-foreground antialiased`}>
-				<AuthStoreBootstrap />
 				<AppHeader />
 				{children}
 				<ScrollToTopButton />

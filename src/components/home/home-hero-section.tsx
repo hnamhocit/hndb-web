@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useMemo } from 'react'
 
 import { downloadLinks } from '@/lib/downloads'
+import { siteLinks } from '@/lib/site-links'
 import { useLang } from '@/lib/use-lang'
 import { usePlatform } from '@/lib/use-platform'
 import { BoltIcon, LayersIcon, ShieldIcon } from 'lucide-react'
@@ -87,19 +88,26 @@ export function HomeHeroSection() {
 				</div>
 
 				<h3 className='text-xl font-bold tracking-tight text-foreground'>
-					{t('authCard.title')}
+					{t('download.title')}
 				</h3>
 
 				<p className='mt-2.5 text-sm text-muted-foreground leading-relaxed'>
-					{t('authCard.description')}
+					{t('download.description')}
 				</p>
 
 				<div className='mt-8 flex flex-col gap-3'>
 					<Link
-						href='/enter'
+						href='/download'
 						className='inline-flex h-11 items-center justify-center rounded-xl bg-foreground px-6 font-medium text-background transition-all hover:scale-[1.02] hover:bg-foreground/90 shadow-sm'>
-						{t('authCard.enter')}
+						{t('nav.download')}
 					</Link>
+					<a
+						href={siteLinks.docs}
+						target='_blank'
+						rel='noreferrer'
+						className='inline-flex h-11 items-center justify-center rounded-xl border border-border px-6 font-medium text-foreground transition-all hover:bg-secondary/70'>
+						{t('footer.help')}
+					</a>
 				</div>
 			</aside>
 		</section>
